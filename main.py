@@ -15,6 +15,6 @@ from config.Config import Config
 database = DatabaseManager(Config)
 database.initSession()
 
-item = InventoryItemDBEntry(InventoryItem("test", 1.0))
+item = InventoryItemDBEntry(InventoryItem("test"))
 database.generateEntry(item)
 

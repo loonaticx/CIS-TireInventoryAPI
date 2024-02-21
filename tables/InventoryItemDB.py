@@ -7,7 +7,7 @@ from sqlalchemy.orm import declarative_base
 
 class InventoryItemDBEntry(declarative_base()):
     """
-    Skeleton for a db entry in the "drinks" table.
+    Skeleton for a db entry in the "inventory" table.
 
     Will be added into the database upon init
     """
@@ -15,21 +15,24 @@ class InventoryItemDBEntry(declarative_base()):
     __tablename__ = "inventory"
 
     id = Column(Integer, primary_key = True, autoincrement = True)
-    name = Column(String(64))
-    price = Column(Float)
-    color = Column(String(32), nullable = True)
-    description = Column(String(128), nullable = True, default = "No description.")
+    brand = Column(String(64))
+    model = Column(String(64))
+    loadRating = Column(Float)
+    speedRating = Column(Float)
+    itemType = Column(String(64))
+    stockAmt = Column(Integer)
 
     def __init__(self, inventoryItem: InventoryItem):
-        self.drink = inventoryItem
-        self.name = inventoryItem.name
-        self.price = inventoryItem.price
-        self.color = inventoryItem.color
-        self.description = inventoryItem.description
+        self.brand = inventoryItem.brand
+        self.model = inventoryItem.model
+        self.loadRating = inventoryItem.loadRating
+        self.speedRating = inventoryItem.speedRating
+        self.itemType = inventoryItem.itemType
+        self.stockAmt = inventoryItem.stockAmt
 
     def __repr__(self):
-        return "<InventoryItemDBEntry(name='%s', price='%s', id='%s')>" % (
-            self.name,
-            self.price,
-            self.id,
+        return "<InventoryItemDBEntry(brand='%s', model='%s', stockAmt='%s')>" % (
+            self.brand,
+            self.model,
+            self.stockAmt,
         )
