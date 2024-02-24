@@ -60,6 +60,18 @@ class DatabaseManager:
         self.session.commit()
 
 
+    def getTableContents(self, dbEntry):
+        tableEntry = self.session.query(dbEntry).all()
+        attributes = [attr for attr in dbEntry.__table__.columns.keys()]
+        itemDict = dict()
+        for item in tableEntry:
+            itemEntry = {attr:getattr(item, attr) for attr in attributes}
+            itemId = itemEntry.pop('id')
+            itemDict[itemId] = itemEntry
+        return itemDict
+
+
+
 if __name__ == "__main__":
     from config.Config import Config
 
