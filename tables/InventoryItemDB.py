@@ -17,22 +17,22 @@ class InventoryItemDBEntry(declarative_base()):
     id = Column(Integer, primary_key = True, autoincrement = True)
     brand = Column(String(64))
     model = Column(String(64))
-    loadRating = Column(Float)
-    speedRating = Column(Float)
-    itemType = Column(String(64))
-    stockAmt = Column(Integer)
+    loadRating = Column(Integer)
+    speedRating = Column(String(1))
+    type = Column(String(64))
+    stock = Column(Integer)
 
     def __init__(self, inventoryItem: InventoryItem):
         self.brand = inventoryItem.brand
         self.model = inventoryItem.model
         self.loadRating = inventoryItem.loadRating
         self.speedRating = inventoryItem.speedRating
-        self.itemType = inventoryItem.itemType
-        self.stockAmt = inventoryItem.stockAmt
+        self.type = inventoryItem.itemType
+        self.stock = inventoryItem.stockAmt
 
     def __repr__(self):
-        return "<InventoryItemDBEntry(brand='%s', model='%s', stockAmt='%s')>" % (
+        return "<InventoryItemDBEntry(brand='%s', model='%s', stock='%s')>" % (
             self.brand,
             self.model,
-            self.stockAmt,
+            self.stock,
         )
