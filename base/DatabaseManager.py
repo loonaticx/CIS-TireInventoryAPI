@@ -12,11 +12,17 @@ from base.ConnectionType import ConnectionType
 import sys
 from sqlalchemy.orm import sessionmaker
 
+from tables.InventoryItemDB import InventoryItemDBEntry
+
 global initialized
 initialized = False
 
 
 class DatabaseManager:
+
+    _tableContentData = {
+        InventoryItemDBEntry: {}
+    }  # dbEntry : itemDict
 
     def __init__(self, config):
         global initialized
@@ -59,17 +65,30 @@ class DatabaseManager:
         self.session.add(dbEntry)
         self.session.commit()
 
+        self._tableContentData[dbEntry] = dict()
+
+    # @property
+    # def tableContentData(self):
+    #     for tableDbEntry in self._tableContentData.keys():
+    #         self._tableContentData[tableDbEntry] = self.getTableContents(tableDbEntry)
+    #     return self._tableContentData
+
+    # @tableContentData.setter
+    # def tableContentData(self, dbEntry):
+    #     dbVal = self.getTableContents(dbEntry)
+    #     self.tableContentData[dbEntry] = dbVal
 
     def getTableContents(self, dbEntry):
         tableEntry = self.session.query(dbEntry).all()
         attributes = [attr for attr in dbEntry.__table__.columns.keys()]
         itemDict = dict()
         for item in tableEntry:
-            itemEntry = {attr:getattr(item, attr) for attr in attributes}
+            itemEntry = {attr: getattr(item, attr) for attr in attributes}
             itemId = itemEntry.pop('id')
             itemDict[itemId] = itemEntry
+        # if not self._tableContentData[dbEntry]:
+        #     self._tableContentData[dbEntry] = itemDict
         return itemDict
-
 
 
 if __name__ == "__main__":

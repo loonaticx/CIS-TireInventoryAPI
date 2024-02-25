@@ -1,5 +1,5 @@
 """
-Generates arbitrary drinks
+Generates arbitrary tires
 """
 import random
 from dataclasses import dataclass
@@ -8,7 +8,6 @@ from base.DatabaseManager import *
 from tables.InventoryItem import InventoryItem
 from tables.InventoryItemDB import InventoryItemDBEntry
 from config.Config import Config
-
 
 # Not going to cause a big deal if user tries to input a new tire
 # with an invalid model name wrt the brand.
@@ -32,7 +31,6 @@ tire_brand_models = {
 total_tire_count = 0
 for mdl in tire_brand_models.values():
     total_tire_count += len(mdl)
-
 
 # Reference:
 # https://www.readingtruck.com/understanding-truck-tires-load-ratings-and-sizes/
@@ -83,6 +81,8 @@ tireHashes = []
 
 # https://www.bigotires.com/resources/suspension-&-front-end/what-is-tire-load-rating
 load_ratings = (71, 110)
+
+
 @dataclass
 class TireGenerator:
 
@@ -107,12 +107,12 @@ class TireGenerator:
         tireSpeedRating = random.choice(list(speed_ratings.keys()))
         tireStock = random.randint(0, 42)
         tire = InventoryItem(
-            brand=tireBrand,
-            model=tireModel,
+            brand = tireBrand,
+            model = tireModel,
             loadRating = tireLoadRating,
             speedRating = tireSpeedRating,
-            itemType=tireType,
-            stockAmt=tireStock,
+            itemType = tireType,
+            stockAmt = tireStock,
         )
         return InventoryItemDBEntry(tire)
 
