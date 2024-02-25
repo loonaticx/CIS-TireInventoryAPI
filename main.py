@@ -86,4 +86,4 @@ def manage_tire(tireId):
     return jsonify(returnInfo)
 
 
-app.run('localhost', debug = True)
+app.run(Config.FLASK_HOST, debug = Config.FLASK_WANT_DEBUG)
