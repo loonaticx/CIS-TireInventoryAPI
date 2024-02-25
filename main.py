@@ -21,6 +21,7 @@ database.initSession()
 # Grab our table
 _tireDB = database.session.query(InventoryItemDBEntry)
 
+
 @app.route('/api/inventory', methods = ['GET'], strict_slashes = False)
 def all_tires():
     # Fetch all entries
@@ -33,9 +34,6 @@ def manage_tire(tireId):
     returnInfo = {}
     # Grab the dict that has all the entries for this table (InventoryItemDBEntry)
     registeredTiresDict = database.getTableContents(InventoryItemDBEntry)
-
-    # Avoid annoying content type error
-    request.get_json(force = True)
 
     tireId = int(tireId)
 
@@ -59,22 +57,8 @@ def manage_tire(tireId):
                 _val_ = str(_val_)
             return _val_
 
-        # There's 2 different ways that we can be given input,
-        # either through the request body (JSON) or through URI parameters (ARGS).
-
-        # Right now, we don't know for certain which method will be used, so we will
-        # build the new attributes of our object (1) by concatenating what we get.
-
-        # requested_json here should be attributes/columns that were given to us from the input
+        # requested_arg here should be attributes/columns that were given to us from the input
         # & _val of course is the data we want to set the attribute to.
-        for requested_json, _val in request.json.items():
-            # With our request data, check to see which ones are proper attributes of our tire
-            if hasattr(tireDbEntry, requested_json):
-                val = correctValType(getattr(tireDbEntry, requested_json), _val)
-                tireDataDict[requested_json] = val
-                tireDbEntry.requested_json = val
-
-        # Do the same thing but for attributes passed through parameters
         for requested_arg, _val in request.args.items():
             if hasattr(tireDbEntry, requested_arg):
                 val = correctValType(getattr(tireDbEntry, requested_arg), _val)
