@@ -19,7 +19,7 @@ class InventoryItemDBEntry(declarative_base()):
     model = Column(String(64))
     loadRating = Column(Integer)
     speedRating = Column(String(1))
-    type = Column(String(64))
+    itemType = Column(String(64))
     stock = Column(Integer)
 
     def __init__(self, inventoryItem: InventoryItem):
@@ -27,8 +27,8 @@ class InventoryItemDBEntry(declarative_base()):
         self.model = inventoryItem.model
         self.loadRating = inventoryItem.loadRating
         self.speedRating = inventoryItem.speedRating
-        self.type = inventoryItem.itemType
-        self.stock = inventoryItem.stockAmt
+        self.itemType = inventoryItem.itemType
+        self.stock = inventoryItem.stock
 
     def __repr__(self):
         return "<InventoryItemDBEntry(brand='%s', model='%s', stock='%s')>" % (

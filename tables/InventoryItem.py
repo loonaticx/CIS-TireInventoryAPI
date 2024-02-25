@@ -11,4 +11,4 @@ class InventoryItem:
     loadRating: int = 0
     speedRating: str = ""
     itemType: str = "Unknown Type"
-    stockAmt: int = 0
+    stock: int = 0

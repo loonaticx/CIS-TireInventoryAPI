@@ -112,7 +112,7 @@ class TireGenerator:
             loadRating = tireLoadRating,
             speedRating = tireSpeedRating,
             itemType = tireType,
-            stockAmt = tireStock,
+            stock = tireStock,
         )
         return InventoryItemDBEntry(tire)
 
@@ -125,7 +125,7 @@ class TireGenerator:
 
 if __name__ == "__main__":
     """
-    Driver code; when ran, will insert arbitrary drink entries into the database.
+    Driver code; when ran, will insert arbitrary tire entries into the database.
     """
     # Generate our DB
     database = DatabaseManager(Config)
